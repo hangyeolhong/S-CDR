@@ -35,7 +35,7 @@ You can run this model through ``` python entry.py ```
 |Book|Movie|212,995|81,906|46,506|46,548|94,890|1,908,081|11,742,260|
 |Book|Music|212,995|164,223|26,360|46,548|39,742|1,908,081|1,792,501|
 
-Especially, Cross domain recommendations from book to music were conducted.
+Especially, cross domain recommendations _from book to music_ were conducted.
 
 ## Evaluation result
 
