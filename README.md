@@ -38,6 +38,14 @@ You can run this model through ``` python entry.py ```
 Especially, cross domain recommendations _from book to music_ were conducted.
 
 ## Evaluation result
+- Baseline
+  - EMCDR
+    - Adopt MF to learn embeddings first
+    - Utilize a network to bridge the user embeddings from the auxiliary domain to the target domain
+  - PTUPCDR
+    - Meta network fed with users' characteristic embeddings is learned to generate personalized bridge functions to achieve personalized transfer of user preferences
+
+
 
 |Metric|EMCDR|PTUPCDR|S-CDR|Improvement|
 |:----------:|:-----:|:------:|:--------:|:-----:|
