@@ -126,11 +126,13 @@ def train(model, device, train_loader, optimizer, epoch, best_rmse, best_mae):
         batch_nodes_u, batch_nodes_v, labels_list = data
         optimizer.zero_grad()
         loss = model.loss(batch_nodes_u.to(device), batch_nodes_v.to(device), labels_list.to(device))
-        # print("***********loss=",loss)
+        # print("loss =", loss)
+
         loss.backward(retain_graph=True)
         optimizer.step()
         running_loss += loss.item()
-        print("***********loss.item()=", loss.item())
+        print("loss.item() =", loss.item())
+
         if i % 100 == 0:
             print('[%d, %5d] loss: %.3f, The best rmse/mae: %.6f / %.6f' % (
                 epoch, i, running_loss / 100, best_rmse, best_mae))
@@ -168,6 +170,7 @@ def main(dir_data, test_dir_data):
 
     os.environ['CUDA_VISIBLE_DEVICES'] = '1'
     # os.environ['CUDA_VISIBLE_DEVICES'] = '0, 1, 2, 3'
+
     use_cuda = False
     if torch.cuda.is_available():
         use_cuda = True
@@ -200,8 +203,9 @@ def main(dir_data, test_dir_data):
             test_u = pickle.load(f)
             test_v = pickle.load(f)
             test_r = pickle.load(f)
-    # print("data")
+
     # print(history_u_lists,"\n", history_ur_lists,"\n", history_v_lists,"\n", history_vr_lists,"\n", train_u,"\n", train_v,"\n", train_r,"\n", test_u,"\n", test_v,"\n", test_r,"\n", social_adj_lists,"\n", ratings_list)
+
     """
     ## toy dataset 
     history_u_lists, history_ur_lists:  user's purchased history (item set in training set), and his/her rating score (dict)
@@ -232,17 +236,17 @@ def main(dir_data, test_dir_data):
     # v2e = nn.DataParallel(nn.Embedding(num_items, embed_dim)).to(device)
     # r2e = nn.DataParallel(nn.Embedding(num_ratings, embed_dim)).to(device)
     u2e = nn.Embedding(num_users, embed_dim).to(device)
-    # print("*******************num_users)=", num_users)
+    # print("num_users =", num_users)
     v2e = nn.Embedding(num_items, embed_dim).to(device)
-    print("*******************v2e)=", v2e)
+    print("v2e =", v2e)
     r2e = nn.Embedding(num_ratings, embed_dim).to(device)
 
     # user feature
     # features: item * rating
     agg_u_history = UV_Aggregator(v2e, r2e, u2e, embed_dim, cuda=device, uv=True)
     enc_u_history = UV_Encoder(u2e, embed_dim, history_u_lists, history_ur_lists, agg_u_history, cuda=device, uv=True)
+
     # neighbors
-    # print("$$$$$$$$$$ lambda nodes: enc_u_history(nodes).t()=", lambda nodes: enc_u_history(nodes).t())
     agg_u_social = Social_Aggregator(lambda nodes: enc_u_history(nodes).t(), u2e, embed_dim, cuda=device)
     enc_u = Social_Encoder(lambda nodes: enc_u_history(nodes).t(), embed_dim, social_adj_lists, agg_u_social,
                            base_model=enc_u_history, cuda=device)

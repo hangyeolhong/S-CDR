@@ -22,23 +22,11 @@ class Social_Aggregator(nn.Module):
 
     def forward(self, nodes, to_neighs):
         embed_matrix = torch.empty(len(nodes), self.embed_dim, dtype=torch.float).to(self.device)
-        # print("*******************self.u2e=", self.u2e)
-        # print("*******************parameter::nodes=", nodes)
-        # print("*******************parameter::to_neighs=", to_neighs)
-        # print("*******************len(nodes)=", len(nodes))
-        for i in range(len(nodes)):
-            # print("*******************i=",i)
-            tmp_adj = to_neighs[i]
-            # print("*******************tmp_adj=",tmp_adj)
-            num_neighs = len(tmp_adj)
-            # print("*******************num_neighs=", num_neighs)
-            # 
-            e_u = self.u2e.weight[list(tmp_adj)]  # fast: user embedding
-            # slow: item-space user latent factor (item aggregation)
-            # feature_neighbors = self.features(torch.LongTensor(list(tmp_adj)).to(self.device))
-            # e_u = torch.t(feature_neighbors)
 
-            # print("*******************nodes[i]=", nodes[i])
+        for i in range(len(nodes)):
+            tmp_adj = to_neighs[i]
+            num_neighs = len(tmp_adj)
+            e_u = self.u2e.weight[list(tmp_adj)]  # fast: user embedding
             u_rep = self.u2e.weight[nodes[i]]
 
             att_w = self.att(e_u, u_rep, num_neighs)

@@ -1,6 +1,7 @@
 import torch
 import torch.nn.functional as F
 import run_GraphRec_example
+from run_GraphRec_example import GraphRec
 
 
 class LookupEmbedding(torch.nn.Module):
@@ -161,12 +162,15 @@ class DNNBasedModel(torch.nn.Module):
         src_test_data = './data/pkl/test_src'  # './data/toy/toy_test_src'#'./data/pkl/test_src'
         tgt_dir_data = './data/pkl/tgt256_new'  # './data/toy/toy_tgt'#'./data/pkl/tgt256_new'
         tgt_test_data = './data/pkl/test'  # './data/toy/toy_test'#'./data/pkl/test'
+
         print("\n################### START GraphRec :: SRC ###################")
         self.src_model = run_GraphRec_example.main(src_dir_data, src_test_data)
         print("################### Done! ###################")
+
         print("\n################### START GraphRec :: TGT ###################")
         self.tgt_model = run_GraphRec_example.main(tgt_dir_data, tgt_test_data)
         print("################### Done! ###################")
+
         # self.src_model = DNNBase(uid_all, iid_all, emb_dim)
         # self.tgt_model = DNNBase(uid_all, iid_all, emb_dim)
         self.aug_model = DNNBase(uid_all, iid_all, emb_dim)
