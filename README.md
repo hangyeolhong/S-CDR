@@ -29,7 +29,7 @@ You can run this model through ``` python entry.py ```
 |:---------:|:------:|:-------:|
 |SocialNet|695,800|1,758,302|
 
-|Source|Target|Source|Target|Overlap|Source|Target|Source|Target|
+|Source|Target|Source (#item)|Target (#item)|Overlap (#user)|Source (#user)|Target (#user)|Source (#rating)|Target (#rating)|
 |:-----:|:-----:|:------:|:------:|:------:|:------:|:------:|:----------:|----------:|
 |Movie|Music|81,906|164,223|39,710|94,890|39,742|11,742,260|1,792,501|
 |Book|Movie|212,995|81,906|46,506|46,548|94,890|1,908,081|11,742,260|
@@ -51,7 +51,3 @@ Especially, cross domain recommendations _from book to music_ were conducted.
 |:----------:|:-----:|:------:|:--------:|:-----:|
 |MAE|1.6909|1.5275|**1.4395**|5.76%|
 |RMSE|2.2821|2.1695|**2.0923**|3.56%|
-
-## Reference
-- PTUPCDR(WSDM 2022): https://arxiv.org/pdf/2110.11154.pdf
-- GraphRec(WWW 2019): https://arxiv.org/pdf/1902.07243.pdf
