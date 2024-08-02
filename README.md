@@ -1,5 +1,5 @@
-# skt2021
-skt project in the 2nd semester of 2021.
+# S-CDR
+2021 2nd semester project (skt project)
 
 ## Contribution
 - Propose *S-CDR*, a cross-domain recommendation framework that utilizes users' social relationships.
